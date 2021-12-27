@@ -1,0 +1,206 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+nord-0 = #2E3440
+nord-1 = #3B4252
+nord-2 = #434C5E
+nord-3 = #4C566A
+
+snow-0 = #D8DEE9
+snow-1 = #E5E9F0
+snow-2 = #ECEFF4
+
+red = #BF616A
+orange = #D08770
+yellow = #EBCB8B
+green = #A3BE8C
+purple = #B48EAD
+
+blue = #5E81AC
+lightblue = #88C0D0
+lightgreen = #8FBCBB
+
+background = ${colors.nord-0}
+foreground = ${colors.snow-0}
+primary = #F0C674
+secondary = #8ABEB7
+alert = #A54242
+disabled = ${colors.nord-3}
+
+[bar/mybar]
+width = 100%
+height = 3%
+radius = 6
+
+monitor = ${env:MONITOR:}
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 1
+padding-right = 1
+
+module-margin = 1
+
+separator = |
+separator-foreground = ${colors.disabled}
+
+; font-0 = PowerlineSymbols:size=18;4
+font-0 = monospace;2
+font-1 = Iosevka Nerd Font:style=Bold;1
+
+modules-left =  powermenu bspwm xwindow
+modules-center = date
+modules-right = pulseaudio wlan eth battery filesystem  memory cpu
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+; tray-position = right
+
+; wm-restack = generic
+wm-restack = bspwm
+; wm-restack = i3
+
+; override-redirect = true
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+enable-click = true
+enable-scroll = false
+
+format = <label-state>
+format-background = ${color.rounds}
+
+label-focused-padding = 1
+label-focused-background = ${colors.nord-1}
+label-empty-padding = 1
+label-empty-foreground = ${colors.nord-3}
+label-occupied-padding = 1
+
+label-separator = |
+label-separator-foreground = ${colors.disabled}
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60:...%
+label-maxlen = 40
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %{F#B48EAD}%{F-} %percentage_used%%
+
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.disabled}
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+format-charging =  <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full =  <label-full>
+format-full-foreground = ${colors.green}
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+ramp-capacity-0-foreground = ${colors.red}
+ramp-capacity-1-foreground = ${colors.orange}
+ramp-capacity-2-foreground = ${colors.yellow}
+ramp-capacity-3-foreground = ${colors.yellow}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume-prefix = "墳 "
+format-volume-prefix-foreground = ${colors.blue}
+format-volume = <label-volume>
+
+label-volume = %percentage%%
+
+label-muted = 婢 %percentage%%
+label-muted-foreground = ${colors.disabled}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.orange}
+label = %percentage_used:2%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.lightblue}
+label = %percentage:2%%
+
+[network-base]
+type = internal/network
+interval = 5
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
+
+[module/wlan]
+type = internal/network
+interface-type = wireless
+interface = wlp0s20f3
+label-connected = 直 %essid%  %downspeed%  %upspeed%
+label-connected-foreground = ${colors.lightgreen}
+
+[module/eth]
+type = internal/network
+interface-type = wired
+interface = enp7s0
+label-connected =  %essid%  %downspeed%  %upspeed%
+label-connected-foreground = ${colors.lightgreen}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = "%a %b %d"
+time = %H:%M
+
+format =  <label>
+format-foreground = ${colors.yellow}
+label = %time% %date%
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+; vim:ft=dosini
