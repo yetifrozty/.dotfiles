@@ -1,6 +1,11 @@
-# dotfiles
-my dotfiles.
+# .dotfiles
+My dotfiles.
 
-to install my dotfiles use [stow](https://www.gnu.org/software/stow/)
+To install my dotfiles download [stow](https://www.gnu.org/software/stow/).
 
-feel free to clone my dotfiles and change them.
+´´´
+cd ~
+git clone https://github.com/yetifrozty/.dotfiles
+cd .dotfiles
+stow .
+´´´
