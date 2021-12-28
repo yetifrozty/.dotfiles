@@ -175,15 +175,15 @@ label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
 [module/wlan]
 type = internal/network
 interface-type = wireless
-interface = wlp0s20f3
+interface = ${env:WLAN}
 label-connected = 直 %essid%  %downspeed%  %upspeed%
 label-connected-foreground = ${colors.lightgreen}
 
 [module/eth]
 type = internal/network
 interface-type = wired
-interface = enp7s0
-label-connected =  %essid%  %downspeed%  %upspeed%
+interface = ${env:ETH}
+label-connected =   %downspeed%  %upspeed%
 label-connected-foreground = ${colors.lightgreen}
 
 [module/date]

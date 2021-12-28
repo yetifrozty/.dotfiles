@@ -9,7 +9,7 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 # Launch bar
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar -r mybar &
+    ETH=$(ls /sys/class/net | grep -v lo | grep e) WLAN=$(ls /sys/class/net | grep -v lo | grep wl) MONITOR=$m polybar -r mybar &
   done
 else
   polybar --reload example &
