@@ -65,8 +65,8 @@ separator = |
 separator-foreground = ${colors.disabled}
 
 ; font-0 = PowerlineSymbols:size=18;4
-font-0 = monospace;2
-font-1 = Iosevka Nerd Font:style=Bold:size=17;3
+font-0 = Deja Vu Sans Mono;2
+font-1 = Deja Vu Sans Mono Nerd Font:style=Bold:size=17;3
 
 modules-left =  powermenu bspwm xwindow
 modules-center = date
