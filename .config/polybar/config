@@ -39,16 +39,17 @@ lightgreen = #8FBCBB
 background = ${colors.nord-0}
 foreground = ${colors.snow-0}
 disabled = ${colors.nord-3}
+transparency = #00000000
 
 [bar/mybar]
 width = 100%
-height = 3%
+height = 30
 radius = 6
 
 
 monitor = ${env:MONITOR:}
 
-background = ${colors.background}
+background = ${colors.transparency}
 foreground = ${colors.foreground}
 
 line-size = 3
@@ -59,18 +60,19 @@ border-color = #00000000
 padding-left = 1
 padding-right = 1
 
-module-margin = 1
+module-margin = 0
 
 separator = |
 separator-foreground = ${colors.disabled}
+separator-background = ${colors.background}
 
-; font-0 = PowerlineSymbols:size=18;4
+
 font-0 = Deja Vu Sans Mono;2
-font-1 = Deja Vu Sans Mono Nerd Font:style=Bold:size=17;3
+font-1 = Deja Vu Sans Mono Nerd Font:style=Bold:size=20;5
 
 modules-left =  powermenu bspwm xwindow
-modules-center = date
-modules-right = pulseaudio wlan eth battery filesystem  memory cpu
+;modules-center = date
+modules-right = date pulseaudio wlan eth battery filesystem  memory cpu
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -85,29 +87,62 @@ wm-restack = bspwm
 
 ; override-redirect = true
 
+[margin]
+format-prefix = " "
+format-suffix = " "
+format-prefix-background = ${colors.background}
+format-suffix-background = ${colors.background}
+
 [module/bspwm]
+inherit = margin
 type = internal/bspwm
 pin-workspaces = true
 enable-click = true
 enable-scroll = false
 
-format = <label-state>
-format-background = ${color.rounds}
+format = "<label-state>"
 
 label-focused-padding = 1
 label-focused-background = ${colors.nord-1}
+
 label-empty-padding = 1
 label-empty-foreground = ${colors.nord-3}
 label-occupied-padding = 1
+label-urgent-padding = 1
+
+label-empty-background = ${colors.background}
+label-occupied-background = ${colors.background}
+label-urgent-background = ${colors.background}
+
 
 label-separator = |
 label-separator-foreground = ${colors.disabled}
+label-separator-background = ${colors.background}
+
+
 
 [module/xwindow]
+inherit = margin
 type = internal/xwindow
-label = %title:0:60:...%
+label = " %title:0:60:...%"
 label-maxlen = 40
+label-foreground = ${colors.foreground}
+label-empty = " "
+label-empty-background = ${colors.background}
+
+
+format = " <label>"
+format-background = ${colors.transparency}
+format-foreground = ${colors.nord-0}
+
+format-prefix = ""
+format-suffix = ""
+format-suffix-background = ${colors.transparency}
+format-suffix-foreground = ${colors.nord-0}
+
+label-background = ${colors.background}
 [module/filesystem]
+inherit = margin
 type = internal/fs
 interval = 25
 
@@ -118,7 +153,11 @@ label-mounted = %{F#B48EAD}%{F-} %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.disabled}
 
+label-mounted-background = ${colors.background}
+label-unmounted-background = ${colors.background}
+
 [module/battery]
+inherit = margin
 type = internal/battery
 battery = BAT0
 adapter = ADP1
@@ -139,23 +178,41 @@ ramp-capacity-1-foreground = ${colors.orange}
 ramp-capacity-2-foreground = ${colors.yellow}
 ramp-capacity-3-foreground = ${colors.yellow}
 
+format-full-background = ${colors.background}
+format-charging-background = ${colors.background}
+format-discharging-background = ${colors.background}
+
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume-prefix = "墳 "
+format-volume-suffix = " "
+format-volume-prefix-background = ${colors.background}
+format-volume-suffix-background = ${colors.background}
+
+format-volume-prefix = " 墳 "
 format-volume-prefix-foreground = ${colors.blue}
+
 format-volume = <label-volume>
+format-volume-background = ${colors.background}
 
 label-volume = %percentage%%
 
 label-muted = 婢 %percentage%%
 label-muted-foreground = ${colors.disabled}
+label-muted-background = ${colors.background}
 
 [module/powermenu]
+inherit = margin
 type = custom/menu
 expand-right = true
 
 format-spacing = 1
+
+format-prefix = ""
+format-prefix-background = ${colors.transparency}
+format-prefix-foreground = ${colors.nord-0}
+
+format-background = ${colors.background}
 
 label-open = ""
 label-open-foreground = ${colors.orange}
@@ -186,18 +243,28 @@ menu-3-0-foreground = ${colors.lightblue}
 menu-3-0-exec = bspc quit
 
 [module/memory]
+inherit = margin
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = "  "
 format-prefix-foreground = ${colors.orange}
+
 label = %percentage_used:2%%
+label-background = ${colors.background}
 
 [module/cpu]
+inherit = margin
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = "  "
 format-prefix-foreground = ${colors.lightblue}
+
+format-suffix = ""
+format-suffix-background = ${colors.transparency}
+format-suffix-foreground = ${colors.nord-0}
+
 label = %percentage:2%%
+label-background = ${colors.background}
 
 [network-base]
 type = internal/network
@@ -207,13 +274,16 @@ format-disconnected = <label-disconnected>
 label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
 
 [module/wlan]
+inherit = margin
 type = internal/network
 interface-type = wireless
 interface = ${env:WLAN}
-label-connected = 直 %essid%  %downspeed%  %upspeed%
+label-connected = " 直 %essid%  %downspeed%  %upspeed% "
 label-connected-foreground = ${colors.lightgreen}
+label-connected-background = ${colors.background}
 
 [module/eth]
+inherit = margin
 type = internal/network
 interface-type = wired
 interface = ${env:ETH}
@@ -221,6 +291,7 @@ label-connected =   %downspeed%  %upspeed%
 label-connected-foreground = ${colors.lightgreen}
 
 [module/date]
+inherit = margin
 type = internal/date
 interval = 5
 
@@ -229,7 +300,13 @@ time = %H:%M
 
 format =  <label>
 format-foreground = ${colors.yellow}
+format-background = ${colors.background}
 label = %time% %date%
+
+format-prefix = ""
+format-prefix-background = ${colors.transparency}
+format-prefix-foreground = ${colors.nord-0}
+
 
 [settings]
 screenchange-reload = true
