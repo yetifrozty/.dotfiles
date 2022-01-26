@@ -43,7 +43,7 @@ transparency = #00000000
 
 [bar/mybar]
 width = 100%
-height = 30
+height = 36
 radius = 6
 
 
@@ -68,7 +68,7 @@ separator-background = ${colors.background}
 
 
 font-0 = Deja Vu Sans Mono;2
-font-1 = Deja Vu Sans Mono Nerd Font:style=Bold:size=20;5
+font-1 = Deja Vu Sans Mono Nerd Font:size=22;5
 
 modules-left =  powermenu bspwm xwindow
 ;modules-center = date
