@@ -17,7 +17,7 @@
 ;==========================================================
 
 [colors]
-nord-0 = #2E3440
+nord-0 = #e02E3440
 nord-1 = #3B4252
 nord-2 = #434C5E
 nord-3 = #4C566A
@@ -44,7 +44,7 @@ transparency = #00000000
 [bar/mybar]
 width = 100%
 height = 36
-radius = 6
+radius = 18
 
 
 monitor = ${env:MONITOR:}
@@ -57,22 +57,22 @@ line-size = 3
 border-size = 4
 border-color = #00000000
 
-padding-left = 1
-padding-right = 1
+padding-left = 0
+padding-right = 0
 
 module-margin = 0
 
-separator = |
+separator = " | "
 separator-foreground = ${colors.disabled}
 separator-background = ${colors.background}
 
 
 font-0 = Deja Vu Sans Mono;2
-font-1 = Deja Vu Sans Mono Nerd Font:size=22;5
+font-1 = Deja Vu Sans Mono Nerd Font:size=23;6
 
-modules-left =  powermenu bspwm xwindow
+modules-left = powermenu bspwm xwindow
 ;modules-center = date
-modules-right = date pulseaudio wlan eth battery filesystem  memory cpu
+modules-right = date pulseaudio no-wifi wlan eth battery filesystem  memory cpu
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -94,7 +94,7 @@ format-prefix-background = ${colors.background}
 format-suffix-background = ${colors.background}
 
 [module/bspwm]
-inherit = margin
+;inherit = margin
 type = internal/bspwm
 pin-workspaces = true
 enable-click = true
@@ -122,27 +122,28 @@ label-separator-background = ${colors.background}
 
 
 [module/xwindow]
-inherit = margin
+;inherit = margin
 type = internal/xwindow
-label = " %title:0:60:...%"
-label-maxlen = 40
+label = %title:0:60:...%
+label-maxlen = 34
 label-foreground = ${colors.foreground}
 label-empty = " "
 label-empty-background = ${colors.background}
+;label-empty-foreground = ${colors.nord-0}
 
 
-format = " <label>"
+format = "<label>"
 format-background = ${colors.transparency}
 format-foreground = ${colors.nord-0}
 
-format-prefix = ""
+
 format-suffix = ""
 format-suffix-background = ${colors.transparency}
 format-suffix-foreground = ${colors.nord-0}
 
 label-background = ${colors.background}
 [module/filesystem]
-inherit = margin
+;inherit = margin
 type = internal/fs
 interval = 25
 
@@ -157,11 +158,13 @@ label-mounted-background = ${colors.background}
 label-unmounted-background = ${colors.background}
 
 [module/battery]
-inherit = margin
+;inherit = margin
 type = internal/battery
 battery = BAT0
 adapter = ADP1
 full-at = 95
+
+
 
 format-charging =  <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
@@ -185,11 +188,11 @@ format-discharging-background = ${colors.background}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume-suffix = " "
-format-volume-prefix-background = ${colors.background}
-format-volume-suffix-background = ${colors.background}
+;format-volume-suffix = ""
+;format-volume-prefix-background = ${colors.background}
+;format-volume-suffix-background = ${colors.background}
 
-format-volume-prefix = " 墳 "
+format-volume-prefix = "墳 "
 format-volume-prefix-foreground = ${colors.blue}
 
 format-volume = <label-volume>
@@ -200,9 +203,21 @@ label-volume = %percentage%%
 label-muted = 婢 %percentage%%
 label-muted-foreground = ${colors.disabled}
 label-muted-background = ${colors.background}
-
+ 
 [module/powermenu]
-inherit = margin
+type = custom/text
+content = "襤"
+content-background = ${colors.background}
+content-foreground = ${colors.green}
+
+content-prefix = " "
+#content-prefix-background = ${colors.transparency}
+#content-prefix-foreground = ${colors.nord-0}
+
+click-left = $HOME/.config/polybar/rofi-powermenu.sh
+
+[module/powermenu-old]
+;inherit = margin
 type = custom/menu
 expand-right = true
 
@@ -243,25 +258,26 @@ menu-3-0-foreground = ${colors.lightblue}
 menu-3-0-exec = bspc quit
 
 [module/memory]
-inherit = margin
+;inherit = margin
 type = internal/memory
 interval = 2
-format-prefix = "  "
+format-prefix = " "
 format-prefix-foreground = ${colors.orange}
+format-prefix-background = ${colors.background}
 
 label = %percentage_used:2%%
 label-background = ${colors.background}
 
 [module/cpu]
-inherit = margin
+;inherit = margin
 type = internal/cpu
 interval = 2
-format-prefix = "  "
+format-prefix = " "
 format-prefix-foreground = ${colors.lightblue}
+format-prefix-background = ${colors.background}
 
-format-suffix = ""
-format-suffix-background = ${colors.transparency}
-format-suffix-foreground = ${colors.nord-0}
+format-suffix = " "
+format-suffix-background = ${colors.background}
 
 label = %percentage:2%%
 label-background = ${colors.background}
@@ -274,16 +290,18 @@ format-disconnected = <label-disconnected>
 label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
 
 [module/wlan]
-inherit = margin
+;inherit = margin
 type = internal/network
 interface-type = wireless
-interface = ${env:WLAN}
-label-connected = " 直 %essid%  %downspeed%  %upspeed% "
+interface = ${env:WLAN} 
+label-connected = %{A1:bash $HOME/.config/polybar/rofi-wifi-menu/rofi-wifi-menu.sh:}直 %essid%  %downspeed%  %upspeed%%{A}
 label-connected-foreground = ${colors.lightgreen}
 label-connected-background = ${colors.background}
 
+#click-left = bash $HOME/.config/polybar/rofi-wifi-menu/rofi-wifi-menu.sh
+
 [module/eth]
-inherit = margin
+;inherit = margin
 type = internal/network
 interface-type = wired
 interface = ${env:ETH}
@@ -291,8 +309,18 @@ label-connected =   %downspeed%  %upspeed%
 label-connected-foreground = ${colors.lightgreen}
 label-connected-background = ${colors.background}
 
+[module/no-wifi]
+type = custom/script
+interval = 1
+exec = [[ $(ls /sys/class/net | grep wl) == "" ]] || [[ "$(ip route get 1 2> /dev/null | awk '{print $7}')" == *"."* ]] && echo "" || echo 睊
+
+format-foreground = ${colors.red}
+format-background = ${colors.background}
+
+click-left = bash $HOME/.config/polybar/rofi-wifi-menu/rofi-wifi-menu.sh
+
 [module/date]
-inherit = margin
+;inherit = margin
 type = internal/date
 interval = 5
 

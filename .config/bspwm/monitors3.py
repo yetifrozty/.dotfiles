@@ -7,6 +7,8 @@ def run(command):
 
 def workspace(monitors):
     amount = len(monitors)
+    if amount == 1: amount = 2
+    print(amount)
     workspaces= " ".join(str(e) for e in list(range(1, 10//amount+1)))
     return workspaces
 monitors = run(r"xrandr |awk '/ connected/{print $1}'").splitlines()
