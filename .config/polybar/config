@@ -115,7 +115,7 @@ label-occupied-background = ${colors.background}
 label-urgent-background = ${colors.background}
 
 
-label-separator = |
+label-separator = "|"
 label-separator-foreground = ${colors.disabled}
 label-separator-background = ${colors.background}
 

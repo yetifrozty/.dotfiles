@@ -8,11 +8,16 @@ super + Return
 
 # program launcher
 super + space
-	~/Dokument/Projects/pymenu/main.py
+	$HOME/.config/rofi/rofi_menu
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+#view all open programs
+alt + Tab
+	rofi -show window
+
 
 #
 # bspwm hotkeys

@@ -1,0 +1,43 @@
+chosen=$(printf "apps\nsteam\nlutris" | rofi -dmenu -i -p "run:")
+
+#steam installation paths
+flatpak="$HOME/.var/app/com.valvesoftware.Steam"
+normal="$HOME"
+
+
+steam_install=flatpak
+
+
+runsteam () {
+    games=$(grep -n "name" "${!steam_install}"/.local/share/Steam/steamapps/*.acf | sed -e 's/^.*_//;s/\.acf:.:/ /;s/name//;s/"//g;s/\t//g;s/ /-/' | awk -F"-" '{printf "%-40s %s\n", $2, $1}' | sort | grep -vi 'proton\|steam')
+    game_names=$(printf "$games" | awk '{$NF=""}1')
+    rofi=$(printf "launch steam\n$game_names")
+    chosen_game=$(printf "$rofi" | rofi -dmenu -i -p "run:" || echo no game found)
+    #echo $chosen_game
+    echo $chosen_game | grep "no game found" > /dev/null && exit 1
+    if [[ "$chosen_game" == *"launch steam"* ]]; then
+        [[ $steam_install == normal ]] && steam
+        [[ $steam_install == flatpak ]] && flatpak run com.valvesoftware.Steam
+        exit
+    fi
+    #echo $chosen_game | grep "launch steam" > /dev/null && [[ $steam_install == normal ]] && steam || [[ $steam_install == flatpak ]] && flatpak run com.valvesoftware.Steam
+    id=$(printf "$games" | grep "$chosen_game" | awk '{print $NF}')
+    xdg-open steam://rungameid/$id
+}
+
+runlutris () {
+    games=$(lutris -lo 2>/dev/null)
+    game_names=$(printf "$games" | cut -d \| -f2)
+    rofi=$(printf "launch lutris\n$game_names")
+    chosen_game=$(printf "$rofi" | rofi -dmenu -i -p "run:" || echo no game found)
+    echo $chosen_game | grep "no game found" > /dev/null && exit 1
+    echo $chosen_game | grep "launch lutris" > /dev/null && lutris && exit 0
+    id=$(printf "$games" | grep "$chosen_game" | awk '{print $1}')
+    lutris lutris:rungameid/$id
+}
+
+case $chosen in
+    steam) runsteam ;;
+    lutris) runlutris ;;
+    apps) rofi -show drun ;;
+esac
