@@ -33,6 +33,6 @@ xsetroot -cursor_name left_ptr &
 picom --experimental-backends &
 nitrogen --restore &
 ~/.config/dunst/reload.sh
-
+betterlockscreen -u $(cat bg-saved.cfg | grep file | head -n 1 | sed s/file=//g) &
 
 #sudo $HOME/.xinitrc

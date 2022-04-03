@@ -1,0 +1,1 @@
+this rofi config was forked from https://github.com/georg3tom/dotfiles

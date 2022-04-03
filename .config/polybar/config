@@ -214,7 +214,7 @@ content-prefix = " "
 #content-prefix-background = ${colors.transparency}
 #content-prefix-foreground = ${colors.nord-0}
 
-click-left = $HOME/.config/polybar/rofi-powermenu.sh
+click-left = $HOME/.config/rofi/scripts/rofi-power
 
 [module/powermenu-old]
 ;inherit = margin
@@ -294,11 +294,9 @@ label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
 type = internal/network
 interface-type = wireless
 interface = ${env:WLAN} 
-label-connected = %{A1:bash $HOME/.config/polybar/rofi-wifi-menu/rofi-wifi-menu.sh:}直 %essid%  %downspeed%  %upspeed%%{A}
+label-connected = %{A1:bash $HOME/.config/rofi/scripts/rofi-wifi-menu:}直 %essid%  %downspeed%  %upspeed%%{A}
 label-connected-foreground = ${colors.lightgreen}
 label-connected-background = ${colors.background}
-
-#click-left = bash $HOME/.config/polybar/rofi-wifi-menu/rofi-wifi-menu.sh
 
 [module/eth]
 ;inherit = margin
@@ -317,7 +315,7 @@ exec = [[ $(ls /sys/class/net | grep wl) == "" ]] || [[ "$(ip route get 1 2> /de
 format-foreground = ${colors.red}
 format-background = ${colors.background}
 
-click-left = bash $HOME/.config/polybar/rofi-wifi-menu/rofi-wifi-menu.sh
+click-left = $HOME/.config/rofi/scripts/rofi-wifi-menu  
 
 [module/date]
 ;inherit = margin
