@@ -1,6 +1,6 @@
 #!/bin/bash
-wifi=$(ls /sys/class/net | grep wl >/dev/null && echo Wifi)
-chosen=$(printf "Apps\nGames\n$wifi\nScreenshot\nPowermenu" | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
+wifi=$(ls /sys/class/net | grep wl >/dev/null && echo "Wifi\n")
+chosen=$(printf "Apps\nGames\n${wifi}Screenshot\nPowermenu" | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
 
 #steam installation paths
 flatpak="$HOME/.var/app/com.valvesoftware.Steam"

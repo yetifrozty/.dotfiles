@@ -16,7 +16,7 @@ super + Escape
 
 #view all open programs
 alt + Tab
-	rofi -show window
+	~/.config/rofi/scripts/rofi-appswitch
 
 
 #
