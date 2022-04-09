@@ -265,20 +265,20 @@ format = "Discord\n%s\n%b"
 	foreground  = "#D8DEE9"
 	timeout     = 4
 	#frame_color = "#A3BE8C"
-	icon	    = "/home/hilding/.config/dunst/icons/low.svg"
+	icon	    = "~/.config/dunst/icons/low.svg"
 
 
 [urgency_normal]
 	background = "#2E3440"
 	foreground = "#D8DEE9"
 	timeout = 4
-	icon        = "/home/hilding/.config/dunst/icons/normal.svg" 
+	icon        = "~/.config/dunst/icons/normal.svg" 
 
 [urgency_critical]
 	background = "#2E3440"
 	foreground = "#D8DEE9"
 	#frame_color="#f07178"
 	timeout = 0
-        icon        = "/home/hilding/.config/dunst/icons/critical.svg" 
+    icon        = "~/.config/dunst/icons/critical.svg" 
 
 
