@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+#terminate media module if already running
+#killall media
+
+#run the media module
+~/.config/polybar/medialaunch &
+
+
 # Terminate already running bar instances
 killall -q polybar
 

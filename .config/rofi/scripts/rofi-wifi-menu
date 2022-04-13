@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 notify-send "Getting list of available Wi-Fi networks..."
 # Get a list of available wifi connections and morph it into a nice-looking list
-wifi_list=$(nmcli --fields "SECURITY,SSID" device wifi list | sed 1d | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d")
+wifi_command=$(nmcli --fields "SECURITY,BSSID,SSID,SIGNAL,BARS,ACTIVE" device wifi list)
+wifi_list=$(printf "$wifi_command" | sed 1d | grep -v yes | sed "1 i$(printf "$wifi_command" | grep yes) \\" | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d" | sed "s/ no//g" | sed "s/ yes/ */g" | awk '{$2="";$0=$0} NF=NF' | column -t)
+
+printf "$(printf "$wifi_command" | sed 1d | grep -v yes | sed "1 i$(printf "$wifi_command" | grep yes) \\")" 
+
 
 connected=$(nmcli -fields WIFI g)
 if [[ "$connected" =~ "enabled" ]]; then
@@ -13,7 +17,7 @@ fi
 # Use rofi to select wifi network
 chosen_network=$(echo -e "$toggle\n$wifi_list" | uniq -u | rofi -dmenu -i -selected-row 1 -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "Wi-Fi SSID" )
 # Get name of connection
-chosen_id=$(echo "${chosen_network:3}" | xargs)
+chosen_id=$(echo "${chosen_network:3}" | xargs | awk '{print $1}')
 
 if [ "$chosen_network" = "" ]; then
 	exit
@@ -30,7 +34,7 @@ else
 		nmcli connection up id "$chosen_id" | grep "successfully" && notify-send "Connection Established" "$success_message"
 	else
 		if [[ "$chosen_network" =~ "" ]]; then
-			wifi_password=$(rofi -dmenu -p "Password: " )
+			wifi_password=$(rofi -dmenu -password -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "Password: " )
 		fi
 		nmcli device wifi connect "$chosen_id" password "$wifi_password" | grep "successfully" && notify-send "Connection Established" "$success_message"
 	fi

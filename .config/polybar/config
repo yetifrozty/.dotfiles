@@ -49,7 +49,7 @@ radius = 18
 
 monitor = ${env:MONITOR:}
 
-background = ${colors.transparency}
+background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3
@@ -67,12 +67,12 @@ separator-foreground = ${colors.disabled}
 separator-background = ${colors.background}
 
 
-font-0 = Deja Vu Sans Mono;2
-font-1 = Deja Vu Sans Mono Nerd Font:size=23;6
+font-0 = Deja Vu Sans Mono:size=11;2
+font-1 = Deja Vu Sans Mono Nerd Font:size=18;4
 
 modules-left = powermenu bspwm xwindow
-;modules-center = date
-modules-right = date pulseaudio no-wifi wlan eth battery filesystem  memory cpu
+modules-center = media date
+modules-right = pulseaudio no-wifi wlan eth battery filesystem  memory cpu
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -86,6 +86,14 @@ wm-restack = bspwm
 ; wm-restack = i3
 
 ; override-redirect = true
+
+[module/media]
+type = custom/ipc
+;exec = random=$(echo $RANDOM | sha256sum | awk '{print $1}' ) && echo $(echo $(timeout 0.5 playerctl --follow metadata -f '%{A1:~/.config/polybar/play-pause:}{{status}}%{A} {{artist}} - {{title}} '$random'' 2>/dev/null) | awk '{sub(/'$random'.*/,x)}1' | sed s/Playing//g | sed s/Paused/契/g) 
+hook-0 = cat ~/.config/polybar/curmedia
+initial = 1
+label-output-maxlen = 20
+format-foreground = ${colors.green}
 
 [margin]
 format-prefix = " "
@@ -125,7 +133,7 @@ label-separator-background = ${colors.background}
 ;inherit = margin
 type = internal/xwindow
 label = %title:0:60:...%
-label-maxlen = 34
+label-maxlen = 40
 label-foreground = ${colors.foreground}
 label-empty = " "
 label-empty-background = ${colors.background}
@@ -137,9 +145,9 @@ format-background = ${colors.transparency}
 format-foreground = ${colors.nord-0}
 
 
-format-suffix = ""
-format-suffix-background = ${colors.transparency}
-format-suffix-foreground = ${colors.nord-0}
+;format-suffix = ""
+;format-suffix-background = ${colors.transparency}
+;format-suffix-foreground = ${colors.nord-0}
 
 label-background = ${colors.background}
 [module/filesystem]
@@ -294,7 +302,7 @@ label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
 type = internal/network
 interface-type = wireless
 interface = ${env:WLAN} 
-label-connected = %{A1:bash $HOME/.config/rofi/scripts/rofi-wifi-menu:}直 %essid%  %downspeed%  %upspeed%%{A}
+label-connected = %{A1:bash $HOME/.config/rofi/scripts/rofi-wifi-menu:}直  %downspeed%  %upspeed%%{A}
 label-connected-foreground = ${colors.lightgreen}
 label-connected-background = ${colors.background}
 
@@ -310,7 +318,7 @@ label-connected-background = ${colors.background}
 [module/no-wifi]
 type = custom/script
 interval = 1
-exec = [[ $(ls /sys/class/net | grep wl) == "" ]] || [[ "$(ip route get 1 2> /dev/null | awk '{print $7}')" == *"."* ]] && echo "" || echo 睊
+exec = ls /sys/class/net | grep wl>/dev/null || exit || ip route get 1 &>/dev/null && echo "" || echo 睊
 
 format-foreground = ${colors.red}
 format-background = ${colors.background}
@@ -330,9 +338,9 @@ format-foreground = ${colors.yellow}
 format-background = ${colors.background}
 label = %time% %date%
 
-format-prefix = ""
-format-prefix-background = ${colors.transparency}
-format-prefix-foreground = ${colors.nord-0}
+;format-prefix = ""
+;format-prefix-background = ${colors.transparency}
+;format-prefix-foreground = ${colors.nord-0}
 
 
 [settings]
