@@ -7,9 +7,9 @@
 save_location="$HOME/Screenshots"
 screenshot_path="$save_location/$(date +'%Y-%m-%d-%H%M%S').png"
 
-screen=''
+screen=''
 area=''
-window=''
+window=''
 
 chosen=$(printf '%s;%s;%s\n' "$screen" "$area" "$window" \
     | rofi -theme-str '@import "~/.config/rofi/themes/screenshot.rasi"' \

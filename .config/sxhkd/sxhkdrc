@@ -26,7 +26,8 @@ alt + Tab
 # quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
-
+super + l
+	betterlockscreen -l blur
 # close and kill
 super + {_,shift + }w
 	bspc node -{c,k}

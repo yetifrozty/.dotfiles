@@ -318,7 +318,7 @@ label-connected-background = ${colors.background}
 [module/no-wifi]
 type = custom/script
 interval = 1
-exec = ls /sys/class/net | grep wl>/dev/null || exit || ip route get 1 &>/dev/null && echo "" || echo 睊
+exec = ls /sys/class/net | grep wl>/dev/null && nmcli | grep wl | head -n1 | grep disconnected &>/dev/null && echo 睊 || echo ""
 
 format-foreground = ${colors.red}
 format-background = ${colors.background}
