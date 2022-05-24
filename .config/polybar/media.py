@@ -15,7 +15,7 @@ def truncate(string, width):
 def run(command):
     with os.popen(command) as cmd:
         return cmd.read()
-lockpid = run('cat ~/.config/polybar/media.lock')
+lockpid = run('cat ~/.config/polybar/media.lock || echo 0')
 #print(int(lockpid))
 curpid = os.getpid()
 
@@ -30,8 +30,9 @@ for line in sys.stdin:
     songinfo = line[line.rfind("怜") + 6:].replace("\"", "")
 
     #line = truncate(line, 20).rstrip('\n')
-    line = line[:line.rfind("怜") + 6] + truncate(songinfo, 25)
-    #print(line)
+    line = line[:line.rfind("怜") + 6] + truncate(songinfo, 35)
+    line = line.replace("'", r"'\''")
+    print(line)
     os.system(f"echo '{line}' > ~/.config/polybar/curmedia")
     pids = run('pgrep polybar').splitlines()
     for pid in pids:

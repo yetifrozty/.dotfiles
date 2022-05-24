@@ -2,7 +2,7 @@
   /* General */
   text-font:                            "Deja Vu Sans Mono Nerd Font Bold 14";
   text-font-mono:                       "Deja Vu Sans Mono Nerd Font Mono 14";
-  icon-font:                            "Deja Vu Sans Mono Nerd Font Mono 55";
+  icon-font:                            "Deja Vu Sans Mono Nerd Font Mono 60";
   icon-font-small:                      "Deja Vu Sans Mono Nerd Font Mono 24";
   all-inputbar-margin:                  4px 4px;
   all-prompt-padding:                   16px 20px;
@@ -20,12 +20,12 @@
    * around using this character: ■
    * We then add add 100 actual padding around the icons.
    *                                    -12px 0px   -19px -96px */
-  option-element-padding:               8%  5% 7.5%  0.4%;
-  option-3-window-padding:              37% 23%;
+  option-element-padding:               88px  100px 81px  4px;
+  option-3-window-padding:              407px 442px;
   option-3-listview-spacing:            126px;
-  option-5-window-padding:              37% 9%;
+  option-5-window-padding:              407px 177px;
   option-5-listview-spacing:            6%;
-  option-6-listview-spacing:            2%;
+  option-6-listview-spacing:            35px;
 
   apps-textbox-prompt-colon-padding:    16px;
 

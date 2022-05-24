@@ -10,6 +10,9 @@ cd .dotfiles
 stow .
 ```
 
+The wallpapers i use is located here: [wallpapers](https://github.com/thefallnn/Nord-Wallpapers).
+
+
 The polybar config uses "DejaVuSansMono" and "DejaVuSansMonoNerdFont". 
 To install DejaVuSansMono on archlinux, run the follow command.
 ```

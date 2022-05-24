@@ -10,6 +10,9 @@ super + Return
 super + space
 	$HOME/.config/rofi/scripts/rofi-menu
 
+super + ctrl + {Left,Right,space}
+    $HOME/.config/polybar/mediactl {previous,next,play-pause}
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -26,7 +29,7 @@ alt + Tab
 # quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
-super + l
+ctrl + alt + l
 	betterlockscreen -l blur
 # close and kill
 super + {_,shift + }w

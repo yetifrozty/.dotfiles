@@ -67,7 +67,7 @@ separator-foreground = ${colors.disabled}
 separator-background = ${colors.background}
 
 
-font-0 = Deja Vu Sans Mono:size=11;2
+font-0 = Jetbrains Mono:size=11;2
 font-1 = Deja Vu Sans Mono Nerd Font:size=18;4
 
 modules-left = powermenu bspwm xwindow
@@ -330,13 +330,13 @@ click-left = $HOME/.config/rofi/scripts/rofi-wifi-menu
 type = internal/date
 interval = 5
 
-date = "%a %b %d"
+date-alt = %a %b %d
 time = %H:%M
 
 format =  <label>
 format-foreground = ${colors.yellow}
 format-background = ${colors.background}
-label = %time% %date%
+label = %time%%date%
 
 ;format-prefix = ""
 ;format-prefix-background = ${colors.transparency}
