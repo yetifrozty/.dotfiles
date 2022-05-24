@@ -15,7 +15,7 @@ def truncate(string, width):
 def run(command):
     with os.popen(command) as cmd:
         return cmd.read()
-lockpid = run('cat ~/.config/polybar/media.lock || echo 0')
+lockpid = run('cat /tmp/polybar_media.lock || echo 0')
 #print(int(lockpid))
 curpid = os.getpid()
 
@@ -23,7 +23,7 @@ for pid in run('pgrep media.py').splitlines():
     #print(pid, pid==int(lockpid))
     if int(pid) == int(lockpid):
         os.system(f'kill {lockpid}')
-os.system(f'echo {curpid} > ~/.config/polybar/media.lock')
+os.system(f'echo {curpid} > /tmp/polybar_media.lock')
 
 for line in sys.stdin:
     line = line.rstrip("\n").replace("Playing", "").replace("Paused", "契")
@@ -33,9 +33,11 @@ for line in sys.stdin:
     line = line[:line.rfind("怜") + 6] + truncate(songinfo, 35)
     line = line.replace("'", r"'\''")
     print(line)
-    os.system(f"echo '{line}' > ~/.config/polybar/curmedia")
+    os.system(f"echo '{line}' > /tmp/polybar_curmedia")
     pids = run('pgrep polybar').splitlines()
     for pid in pids:
+        time.sleep(0.005)
+        print(f'polybar-msg -p {pid} hook media 1 &>/dev/null')
         os.system(f'polybar-msg -p {pid} hook media 1 &>/dev/null')
         
 

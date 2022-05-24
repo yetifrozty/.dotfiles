@@ -90,7 +90,7 @@ wm-restack = bspwm
 [module/media]
 type = custom/ipc
 ;exec = random=$(echo $RANDOM | sha256sum | awk '{print $1}' ) && echo $(echo $(timeout 0.5 playerctl --follow metadata -f '%{A1:~/.config/polybar/play-pause:}{{status}}%{A} {{artist}} - {{title}} '$random'' 2>/dev/null) | awk '{sub(/'$random'.*/,x)}1' | sed s/Playing//g | sed s/Paused/契/g) 
-hook-0 = cat ~/.config/polybar/curmedia
+hook-0 = cat /tmp/polybar_curmedia
 initial = 1
 label-output-maxlen = 20
 format-foreground = ${colors.green}
