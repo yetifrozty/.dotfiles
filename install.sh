@@ -3,6 +3,11 @@ cd ~/.dotfiles
 mkdir ~/.config
 stow .
 
+#install gtk theme
+mkdir ~/.themes
+cd ~/.themes
+git clone https://github.com/EliverLara/Nordic
+
 #install wallpapers
 mkdir ~/.config/nitrogen
 cd ~/.config/nitrogen
