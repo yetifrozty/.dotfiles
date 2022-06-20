@@ -4,7 +4,7 @@
 #killall media
 
 #run the media module
-~/.config/polybar/medialaunch &
+~/.config/polybar/media_module/medialaunch &
 
 
 # Terminate already running bar instances

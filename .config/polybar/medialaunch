@@ -1,2 +1,0 @@
-#!/bin/bash
-playerctl --follow metadata -f '%{A1:~/.config/polybar/mediactl previous:}玲%{A} %{A1:~/.config/polybar/mediactl play-pause:}{{status}}%{A} %{A1:~/.config/polybar/mediactl next:}怜%{A} {{artist}} - "{{title}}" ' 2>/dev/null | ~/.config/polybar/media.py

@@ -1,0 +1,10 @@
+#!/bin/bash
+#echo $(pgrep medialaunch | grep -v $$) &> ~/.config/polybar/media_module/amogus.txt
+processes=$(pgrep medialaunch | grep -v $$)
+for process in $processes
+do
+    pkill -P $process &> ~/.config/polybar/media_module/amogus.txt
+done
+
+touch /tmp/polybar_curmedia
+playerctl --follow metadata -f '{{playerName}}// %{A1:~/.config/polybar/media_module/mediactl previous:}玲%{A} %{A1:~/.config/polybar/media_module/mediactl play-pause:}{{status}}%{A} %{A1:~/.config/polybar/media_module/mediactl next:}怜%{A} {{artist}} - "{{title}}" ' 2>/dev/null | ~/.config/polybar/media_module/media.py

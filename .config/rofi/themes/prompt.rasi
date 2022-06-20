@@ -9,7 +9,7 @@
   height: 30%;
   width: 30%;
   children: [ inputbar, horibox ];
-  border-radius: 10px;
+  border-radius: 0;
   border: @prompt-window-border;
   border-color: @accent;
 }

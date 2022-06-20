@@ -1,4 +1,4 @@
-#
+#0
 # wm independent hotkeys
 #
 
@@ -10,8 +10,13 @@ super + Return
 super + space
 	$HOME/.config/rofi/scripts/rofi-menu
 
+# powermenu
+super + p
+    $HOME/.config/rofi/scripts/rofi-power
+
+# media control
 super + ctrl + {Left,Right,space}
-    $HOME/.config/polybar/mediactl {previous,next,play-pause}
+    $HOME/.config/polybar/media_module/mediactl {previous,next,play-pause}
 
 # make sxhkd reload its configuration files:
 super + Escape

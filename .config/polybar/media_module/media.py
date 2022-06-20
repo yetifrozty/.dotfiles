@@ -33,6 +33,12 @@ for line in sys.stdin:
     line = line[:line.rfind("怜") + 6] + truncate(songinfo, 35)
     line = line.replace("'", r"'\''")
     print(line)
+    
+    playerindex = line.find("//")
+    player = line[:playerindex]
+    os.system(f"echo '{player}' > /tmp/polybar_curplayer")
+    
+    line = line[playerindex + 2:]
     os.system(f"echo '{line}' > /tmp/polybar_curmedia")
     pids = run('pgrep polybar').splitlines()
     for pid in pids:
