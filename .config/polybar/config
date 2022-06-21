@@ -88,12 +88,15 @@ wm-restack = bspwm
 ; override-redirect = true
 
 [module/media]
-type = custom/ipc
-;exec = random=$(echo $RANDOM | sha256sum | awk '{print $1}' ) && echo $(echo $(timeout 0.5 playerctl --follow metadata -f '%{A1:~/.config/polybar/play-pause:}{{status}}%{A} {{artist}} - {{title}} '$random'' 2>/dev/null) | awk '{sub(/'$random'.*/,x)}1' | sed s/Playing//g | sed s/Paused/契/g) 
-hook-0 = cat /tmp/polybar_curmedia
-initial = 1
-label-output-maxlen = 20
+type = custom/script
+
+interval = 0.3
+
 format-foreground = ${colors.green}
+
+exec = $HOME/.config/polybar/media.py
+
+
 
 [margin]
 format-prefix = " "
