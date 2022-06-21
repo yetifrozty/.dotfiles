@@ -88,14 +88,13 @@ wm-restack = bspwm
 ; override-redirect = true
 
 [module/media]
-type = custom/script
+type = custom/ipc
 
-interval = 0.3
 
 format-foreground = ${colors.green}
 
-exec = $HOME/.config/polybar/media.py
-
+hook-0 = $HOME/.config/polybar/media.py
+initial = 1
 
 
 [margin]

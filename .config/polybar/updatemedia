@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+playerctl --follow --player playerctld metadata -f "{{mpris:trackid}} {{status}}" 2>/dev/null | {
+  while IFS= read -r line
+  do
+    pids=$(pgrep polybar)
+    for pid in $pids
+    do
+        polybar-msg -p $pid hook media 1
+        sleep 0.05
+    done
+  done
+}
