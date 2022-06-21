@@ -16,7 +16,10 @@ super + p
 
 # media control
 super + ctrl + {Left,Right,space}
-    $HOME/.config/polybar/media_module/mediactl {previous,next,play-pause}
+    playerctl {previous,next,play-pause}
+
+super + ctrl + {h,l}
+    playerctld {unshift, shift}
 
 # make sxhkd reload its configuration files:
 super + Escape
