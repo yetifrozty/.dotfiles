@@ -9,8 +9,8 @@ cd ~/.themes
 git clone https://github.com/EliverLara/Nordic
 
 #install wallpapers
-mkdir ~/.config/nitrogen
-cd ~/.config/nitrogen
+mkdir -p ~/.config/nitrogen/Wallpapers
+cd ~/.config/nitrogen/Wallpapers
 git clone https://github.com/thefallnn/Nord-Wallpapers
 git clone https://github.com/linuxdotexe/nordic-wallpapers
 echo "Dont forget to add the wallpaper folder in nitrogen later!"

@@ -1,7 +1,7 @@
 # .dotfiles
 My dotfiles.
 
-To install my dotfiles download [stow](https://www.gnu.org/software/stow/).
+To install my dotfiles you have to first install [stow](https://www.gnu.org/software/stow/).
 
 ```
 cd ~
@@ -10,7 +10,9 @@ cd .dotfiles
 stow .
 ```
 
-The wallpapers i use is located here: [wallpapers](https://github.com/thefallnn/Nord-Wallpapers).
+Wallpapers:
+https://github.com/thefallnn/Nord-Wallpapers
+https://github.com/linuxdotexe/nordic-wallpapers
 
 
 The polybar config uses "DejaVuSansMono" and "DejaVuSansMonoNerdFont". 
