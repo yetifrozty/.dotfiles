@@ -20,5 +20,4 @@ line = line.rstrip("\n").replace("Playing", "").replace("Paused", "契")
 songinfo = line[line.rfind("怜") + 6:].replace("\"", "")
 
 line = line[:line.rfind("怜") + 6] + truncate(songinfo, 25)
-line = line.replace("'", r"'\''")
 print(line)
