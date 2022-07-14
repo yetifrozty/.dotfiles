@@ -27,7 +27,7 @@ case "$chosen" in
 
     "$lock")
         # TODO Add your lockscreen command.
-        betterlockscreen -l blur
+        ~/.config/rofi/scripts/rofi-prompt --query 'Lock?' && betterlockscreen -l blur
         ;;
 
     #"$suspend")
@@ -38,7 +38,7 @@ case "$chosen" in
 
     "$log_out")
         # TODO Add your log out command.
-        bspc quit
+        ~/.config/rofi/scripts/rofi-prompt --query 'Log Out?' && bspc quit
         ;;
 
     *) exit 1 ;;
