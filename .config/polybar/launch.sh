@@ -4,6 +4,7 @@
 #killall media
 
 #run the media module
+killall updatemedia
 ~/.config/polybar/updatemedia &
 
 
