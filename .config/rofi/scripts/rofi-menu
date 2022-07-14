@@ -1,6 +1,6 @@
 #!/bin/bash
 wifi=$(ls /sys/class/net | grep wl >/dev/null && echo "Wifi\n")
-chosen=$(printf "Apps\nGames\n${wifi}Screenshot\nPowermenu" | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
+chosen=$(printf "Apps\nGames\n${wifi}Screenshot\nPowermenu\nSettings" | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
 
 #steam installation paths
 flatpak="$HOME/.var/app/com.valvesoftware.Steam"
@@ -47,11 +47,28 @@ rungames () {
     esac
 }
 
+kblayout () {
+    all_kb_maps="localectl --no-pager list-x11-keymap-layouts"
+    chosen=$($all_kb_maps | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
+    printf $chosen
+    $all_kb_maps | grep -w $chosen &>/dev/null && ~/.config/rofi/scripts/rofi-prompt --query "Switch to the $chosen keyboard layout?" && setxkbmap $chosen
+}
+
+settings () {
+    chosen=$(printf "Wallpaper\nKeyboard Layout" | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
+    case $chosen in
+        Wallpaper) nitrogen ;;
+        "Keyboard Layout") kblayout ;;
+        *) exit 1 ;;
+    esac
+}
+
 case $chosen in
     Games) rungames ;;
     Apps) ~/.config/rofi/scripts/rofi-apps ;;
     Wifi) ~/.config/rofi/scripts/rofi-wifi-menu ;;
     Screenshot) ~/.config/rofi/scripts/rofi-screenshot ;;
     Powermenu) ~/.config/rofi/scripts/rofi-power ;;
+    Settings) settings ;;
     *) exit 1 ;;
 esac
