@@ -1,7 +1,16 @@
+#!/usr/bin/bash
+
+#make vscode folders
+mkdir -p ~/.config/Code/User
+
 #stow the dotfiles
 cd ~/.dotfiles
 mkdir ~/.config
 stow .
+
+#install config file adder
+mkdir -p ~/.local/bin
+mv ~/.dotfiles/config.sh ~/.local/bin/config
 
 #install gtk theme
 mkdir ~/.themes
