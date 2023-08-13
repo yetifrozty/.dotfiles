@@ -7,12 +7,19 @@ flatpak="$HOME/.var/app/com.valvesoftware.Steam"
 normal="$HOME"
 
 
-steam_install=flatpak
+steam_install=normal
 
 
 runsteam () {
-    games=$(grep -n "name" "${!steam_install}"/.local/share/Steam/steamapps/*.acf | sed -e 's/^.*_//;s/\.acf:.:/ /;s/name//;s/"//g;s/\t//g;s/ /-/' | awk -F"-" '{printf "%-40s %s\n", $2, $1}' | sort | grep -vi 'proton\|steam')
-    game_names=$(printf "$games" | awk '{$NF=""}1')
+    #games=$(grep -n "name" "${!steam_install}"/.local/share/Steam/steamapps/*.acf | sed -e 's/^.*_//;s/\.acf:.:/ /;s/name//;s/"//g;s/\t//g;s/ /-/' | awk -F"-" '{printf "%-40s %s\n", $2, $1}' | sort | grep -vi 'proton\|steam')
+    games=$(grep -h name ${!steam_install}/.local/share/Steam/steamapps/*.acf | nl)
+    ids=$(grep -h appid ${!steam_install}/.local/share/Steam/steamapps/*.acf | nl)
+    
+    game_names=$(printf "$games" | awk '{$1="";$2="";print}' | rev | cut -c2- | rev | cut -c4-)
+    echo $games
+
+    #game_names=$(printf "$games" | awk '{$NF=""}1')
+    echo $games
     rofi=$(printf "Launch Steam\n$game_names")
     chosen_game=$(printf "$rofi" | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run" || echo no game found)
     #echo $chosen_game
@@ -23,7 +30,9 @@ runsteam () {
         exit
     fi
     #echo $chosen_game | grep "launch steam" > /dev/null && [[ $steam_install == normal ]] && steam || [[ $steam_install == flatpak ]] && flatpak run com.valvesoftware.Steam
-    id=$(printf "$games" | grep "$chosen_game" | awk '{print $NF}')
+    index=$(printf "$games" | grep "$chosen_game" | awk '{print $1} ')
+    id=$(printf "$ids" | grep "^     $index" | awk '{$1="";$2="";print}' | rev | cut -c2- | rev | cut -c4-)
+    echo $id $index
     xdg-open steam://rungameid/$id
 }
 
@@ -48,8 +57,10 @@ rungames () {
 }
 
 kblayout () {
-    all_kb_maps="localectl --no-pager list-x11-keymap-layouts"
-    chosen=$($all_kb_maps | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
+    #all_kb_maps="localectl --no-pager list-x11-keymap-layouts"
+    all_kb_maps='cat /usr/share/X11/xkb/rules/evdev.lst | sed '\''/! layout/,/^$/!d;'\'' | sed 1d | head -n -2'
+    echo "$($all_kb_maps)"
+    chosen=$(printf $all_kb_maps | rofi -dmenu -i -theme-str '@import "~/.config/rofi/themes/apps.rasi"' -p "run")
     printf $chosen
     $all_kb_maps | grep -w $chosen &>/dev/null && ~/.config/rofi/scripts/rofi-prompt --query "Switch to the $chosen keyboard layout?" && setxkbmap $chosen
 }

@@ -72,7 +72,7 @@ font-1 = Deja Vu Sans Mono Nerd Font:size=18;4
 
 modules-left = powermenu bspwm xwindow
 modules-center = media date
-modules-right = pulseaudio no-wifi wlan eth battery filesystem  memory cpu
+modules-right = pulseaudio wlan eth battery filesystem  memory cpu
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -320,7 +320,7 @@ label-connected-background = ${colors.background}
 [module/no-wifi]
 type = custom/script
 interval = 1
-exec = ls /sys/class/net | grep wl>/dev/null && nmcli | grep wl | head -n1 | grep disconnected &>/dev/null && echo 睊 || echo ""
+exec = ls /sys/class/net | grep wl>/dev/null && nmcli | grep wl | head -n1 | grep disconnected &>/dev/null || echo 睊 || echo ""
 
 format-foreground = ${colors.red}
 format-background = ${colors.background}

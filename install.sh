@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 #make vscode folders
 mkdir -p ~/.config/Code/User
